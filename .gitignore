@@ -98,6 +98,8 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.aarch64
+*.arm32
 
 # Chutzpah Test files
 _Chutzpah*
