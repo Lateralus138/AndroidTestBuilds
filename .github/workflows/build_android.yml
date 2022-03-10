@@ -44,7 +44,7 @@ jobs:
         git config --global user.email "faithnomoread@yahoo.com"
         git add docs/json
         git commit -m "Uploaded MD5 - $(date)"
-        git push
+        git push --force
     - uses: ncipollo/release-action@v1
       with:
         allowUpdates: True
