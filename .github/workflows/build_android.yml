@@ -24,14 +24,8 @@ jobs:
         fi
         if ! [[ -f "../docs/json/main_android_32_md5.json" ]]; then
           touch ../docs/json/main_android_32_md5.json || exit 7
-        else
-          rm -f ../docs/json/main_android_32_md5.json
-          touch ../docs/json/main_android_32_md5.json || exit 7
         fi
         if ! [[ -f "../docs/json/main_android_64_md5.json" ]]; then
-          touch ../docs/json/main_android_64_md5.json || exit 8
-        else
-          rm -f ../docs/json/main_android_64_md5.json
           touch ../docs/json/main_android_64_md5.json || exit 8
         fi
         echo -e "$main_android_32_md5_text" > ../docs/json/main_android_32_md5.json || exit 9
@@ -42,9 +36,9 @@ jobs:
       run: |
         git config --global user.name "Lateralus138"
         git config --global user.email "faithnomoread@yahoo.com"
-        git add docs/json/main_android_32_md5.json --force
-        git add docs/json/main_android_64_md5.json --force
-        git commit -m "Uploaded MD5 - $(date)"
+        git add --force docs/json/main_android_32_md5.json
+        git add --force docs/json/main_android_64_md5.json
+        git commit  --force -m "Uploaded MD5 - $(date)"
         git push --force
     - uses: ncipollo/release-action@v1
       with:
