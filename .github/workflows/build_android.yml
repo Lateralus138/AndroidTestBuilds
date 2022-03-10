@@ -42,7 +42,8 @@ jobs:
       run: |
         git config --global user.name "Lateralus138"
         git config --global user.email "faithnomoread@yahoo.com"
-        git add docs/json/*
+        git add docs/json/main_android_32_md5.json --force
+        git add docs/json/main_android_64_md5.json --force
         git commit -m "Uploaded MD5 - $(date)"
         git push --force
     - uses: ncipollo/release-action@v1
