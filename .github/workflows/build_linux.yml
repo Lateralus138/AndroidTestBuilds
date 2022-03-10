@@ -24,8 +24,14 @@ jobs:
         fi
         if ! [[ -f "../docs/json/main_android_32_md5.json" ]]; then
           touch ../docs/json/main_android_32_md5.json || exit 7
+        else
+          rm -f ../docs/json/main_android_32_md5.json
+          touch ../docs/json/main_android_32_md5.json || exit 7
         fi
         if ! [[ -f "../docs/json/main_android_64_md5.json" ]]; then
+          touch ../docs/json/main_android_64_md5.json || exit 8
+        else
+          rm -f ../docs/json/main_android_64_md5.json
           touch ../docs/json/main_android_64_md5.json || exit 8
         fi
         echo -e "$main_android_32_md5_text" > ../docs/json/main_android_32_md5.json || exit 9
