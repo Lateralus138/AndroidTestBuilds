@@ -14,22 +14,21 @@ jobs:
       run: |
         cd src || exit 1
         sudo apt update  || exit 2
-        sudo apt upgrade -y || exit 3
-        sudo apt install g++-arm-android-gnueabihf g++-aarch64-android-gnu -y  || exit 4
-        arm-android-gnueabihf-g++ -static -march=armv8.5-a -O3 -std=c++17 src/main.cpp -o main.arm32  || exit 5
-        aarch64-android-gnu-g++ -static -march=armv8.5-a -O3 -std=c++17 src/main.cpp -o main.aarch64 || exit 6
+        sudo apt install g++-arm-linux-gnueabihf g++-aarch64-linux-gnu -y  || exit 3
+        arm-linux-gnueabihf-g++ -static -march=armv8.5-a -O3 -std=c++17 src/main.cpp -o main.arm32  || exit 4
+        aarch64-linux-gnu-g++ -static -march=armv8.5-a -O3 -std=c++17 src/main.cpp -o main.aarch64 || exit 5
         main_android_32_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "main.arm32 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
         main_android_64_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "main.aarch46 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
         if ! [[ -f "../docs/json/main_android_32_md5.json" ]]; then
-          touch ../docs/json/main_android_32_md5.json || exit 7
+          touch ../docs/json/main_android_32_md5.json || exit 6
         fi
         if ! [[ -f "../docs/json/main_android_64_md5.json" ]]; then
-          touch ../docs/json/main_android_64_md5.json || exit 8
+          touch ../docs/json/main_android_64_md5.json || exit 7
         fi
-        echo -e "$main_android_32_md5_text" > ../docs/json/main_android_32_md5.json || exit 9
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./main.arm32 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_32_md5.json  || exit 10
-        echo -e "$main_android_64_md5_text" > ../docs/json/main_android_64_md5.json || exit 11
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./main.aarch64 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_64_md5.json || exit 12
+        echo -e "$main_android_32_md5_text" > ../docs/json/main_android_32_md5.json || exit 8
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./main.arm32 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_32_md5.json  || exit 9
+        echo -e "$main_android_64_md5_text" > ../docs/json/main_android_64_md5.json || exit 10
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./main.aarch64 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_64_md5.json || exit 11
     - name: Push android MD5
       run: |
         git config --global user.name "Lateralus138"
