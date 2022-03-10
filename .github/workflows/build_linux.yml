@@ -15,8 +15,8 @@ jobs:
         cd src || exit 1
         sudo apt update  || exit 2
         sudo apt install g++-arm-linux-gnueabihf g++-aarch64-linux-gnu -y  || exit 3
-        arm-linux-gnueabihf-g++ -static -march=armv8.5-a -O3 -std=c++17 src/main.cpp -o main.arm32  || exit 4
-        aarch64-linux-gnu-g++ -static -march=armv8.5-a -O3 -std=c++17 src/main.cpp -o main.aarch64 || exit 5
+        arm-linux-gnueabihf-g++ -static -march=armv8.5-a -O3 -std=c++17 main.cpp -o main.arm32  || exit 4
+        aarch64-linux-gnu-g++ -static -march=armv8.5-a -O3 -std=c++17 main.cpp -o main.aarch64 || exit 5
         main_android_32_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "main.arm32 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
         main_android_64_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "main.aarch46 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
         if ! [[ -f "../docs/json/main_android_32_md5.json" ]]; then
