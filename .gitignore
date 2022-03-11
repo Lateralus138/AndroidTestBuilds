@@ -11,6 +11,8 @@
 *.userosscache
 *.sln.docstates
 *.*workspace
+src/main.arm32
+src/main.aarch64
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
