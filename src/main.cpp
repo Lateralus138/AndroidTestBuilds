@@ -19,5 +19,5 @@ int main(int argc, char * argv [])
   const std::string ROBOT = u8"\U0001F480";
   std::string line;
   for (auto i = 0; i < ((int) ceil(message.length() / 2) + 2); i++) line.append(ROBOT);
-  std::cout << line << '\n' << ROBOT << message << ROBOT << '\n' << line << '\n';
+  std::cout << line << '\n' << ROBOT << message << (((message.length() % 2) != 0)?" ":"") << ROBOT << '\n' << line << '\n';
 }
