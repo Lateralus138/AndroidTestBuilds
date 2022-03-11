@@ -18,6 +18,6 @@ int main(int argc, char * argv [])
   }
   const std::string ROBOT = u8"\U0001F480";
   std::string line;
-  for (auto i = 0; i < ((int) floor(message.length() / 2) + 4); i++) line.append(ROBOT);
+  for (auto i = 0; i < ((int) ceil(message.length() / 2) + 2); i++) line.append(ROBOT);
   std::cout << line << '\n' << ROBOT << message << ROBOT << '\n' << line << '\n';
 }
