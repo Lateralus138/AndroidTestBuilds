@@ -18,7 +18,7 @@ int main(int argc, char * argv [])
   }
   const std::string ROBOT = u8"\U0001F480";
   std::string line;
-  bool messageIsEven = ((message.length() % 2) = 0);
+  bool messageIsEven = ((message.length() % 2) == 0);
   for (auto i = 0; i < ((int) ceil(message.length() / 2) + (messageIsEven?2:3)); i++) line.append(ROBOT);
   std::cout << line << '\n' << ROBOT << message << (messageIsEven?"":" ") << ROBOT << '\n' << line << '\n';
 }
