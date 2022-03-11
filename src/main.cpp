@@ -4,7 +4,9 @@
 int main()
 {
   std::string ln = u8"\U0001F916";
-  std::cout << "The length of ln: [" << ln << "] is [" << ln.length() << "]\n";
+  std::cout
+    << "The length of ln: [" << ln << "] is [" << ln.length()
+    << "]\nand\nThe size of ln: [" << ln << "] is [" << ln.size() << "]\n";
   // const std::string ROBOT = u8"\U0001F916";
   // std::string line;
   // for (auto i = 0; i < 15; i++) line.append(ROBOT);
