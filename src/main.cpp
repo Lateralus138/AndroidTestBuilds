@@ -4,16 +4,11 @@
 // #include <filesystem>
 int main()
 {
-  std::string ln = u8"\U0001F916";
-
   const std::string ROBOT = u8"\U0001F916";
   std::string line;
   std::string message = " Welcome to C++ in Android! ";
-  for (auto i = 0; i < ((int) floor(ln.length() / 4) + 2); i++) line.append(ROBOT);
-  std::cout
-    << line
-    << "`nThe length of ln: [" << ln << "] is [" << ln.length()
-    << "]\nand\nThe size of ln: [" << ln << "] is [" << ln.size() << "]\n";
+  for (auto i = 0; i < ((int) floor(message.length() / 4) + 2); i++) line.append(ROBOT);
+  std::cout << line << '\n' << ROBOT << message << ROBOT << '\n' << line << '\n';
   // const std::string ROBOT = u8"\U0001F916";
   // std::string line;
   // for (auto i = 0; i < 15; i++) line.append(ROBOT);
