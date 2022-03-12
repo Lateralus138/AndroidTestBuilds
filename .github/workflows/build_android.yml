@@ -21,19 +21,19 @@ jobs:
         chmod 755 skulls.aarch64 || exit 7
         main_android_32_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "skulls.arm32 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
         main_android_64_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "skulls.aarch46 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
-        if ! [[ -d "../docs/json" ]]; then
-          mkdir -p ../docs/json || exit 8
+        if ! [[ -d "docs/json" ]]; then
+          mkdir -p docs/json || exit 8
         fi
-        if ! [[ -f "../docs/json/main_android_32_md5.json" ]]; then
-          touch ../docs/json/main_android_32_md5.json || exit 9
+        if ! [[ -f "docs/json/main_android_32_md5.json" ]]; then
+          touch docs/json/main_android_32_md5.json || exit 9
         fi
-        if ! [[ -f "../docs/json/main_android_64_md5.json" ]]; then
-          touch ../docs/json/main_android_64_md5.json || exit 10
+        if ! [[ -f "docs/json/main_android_64_md5.json" ]]; then
+          touch docs/json/main_android_64_md5.json || exit 10
         fi
-        echo -e "$main_android_32_md5_text" > ../docs/json/main_android_32_md5.json || exit 11
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./skulls.arm32 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_32_md5.json  || exit 12
-        echo -e "$main_android_64_md5_text" > ../docs/json/main_android_64_md5.json || exit 13
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./skulls.aarch64 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_64_md5.json || exit 14
+        echo -e "$main_android_32_md5_text" > docs/json/main_android_32_md5.json || exit 11
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./skulls.arm32 | cut -d' ' -f 1)\"/g" docs/json/main_android_32_md5.json  || exit 12
+        echo -e "$main_android_64_md5_text" > docs/json/main_android_64_md5.json || exit 13
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./skulls.aarch64 | cut -d' ' -f 1)\"/g" docs/json/main_android_64_md5.json || exit 14
     - name: Push android MD5
       run: |
         git config --global user.name "Lateralus138"
