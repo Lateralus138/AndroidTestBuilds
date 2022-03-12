@@ -12,28 +12,28 @@ jobs:
     - uses: actions/checkout@v2
     - name: Make Android
       run: |
-        sudo apt update  || exit 1
-        sudo apt install g++-arm-linux-gnueabihf g++-aarch64-linux-gnu -y  || exit 2
-        make androidstaticall || exit 3
-        cp android/static/32/skulls skulls.arm32 || exit 4
-        cp android/static/64/skulls skulls.aarch64 || exit 5
-        chmod 755 skulls.arm32 || exit 6
-        chmod 755 skulls.aarch64 || exit 7
-        main_android_32_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "skulls.arm32 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
-        main_android_64_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "skulls.aarch46 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
+        cd src || exit 1
+        sudo apt update  || exit 2
+        sudo apt install g++-arm-linux-gnueabihf g++-aarch64-linux-gnu -y  || exit 3
+        arm-linux-gnueabihf-g++ -static -march=armv8.5-a -O3 -std=c++17 main.cpp -o main.arm32  || exit 4
+        aarch64-linux-gnu-g++ -static -march=armv8.5-a -O3 -std=c++17 main.cpp -o main.aarch64 || exit 5
+        chmod 755 main.arm32
+        chmod 755 main.aarch64
+        main_android_32_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "main.arm32 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
+        main_android_64_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "main.aarch46 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
         if ! [[ -d "../docs/json" ]]; then
-          mkdir -p ../docs/json || exit 8
+          mkdir -p ../docs/json || exit 6
         fi
         if ! [[ -f "../docs/json/main_android_32_md5.json" ]]; then
-          touch ../docs/json/main_android_32_md5.json || exit 9
+          touch ../docs/json/main_android_32_md5.json || exit 7
         fi
         if ! [[ -f "../docs/json/main_android_64_md5.json" ]]; then
-          touch ../docs/json/main_android_64_md5.json || exit 10
+          touch ../docs/json/main_android_64_md5.json || exit 8
         fi
-        echo -e "$main_android_32_md5_text" > ../docs/json/main_android_32_md5.json || exit 11
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./skulls.arm32 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_32_md5.json  || exit 12
-        echo -e "$main_android_64_md5_text" > ../docs/json/main_android_64_md5.json || exit 13
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./skulls.aarch64 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_64_md5.json || exit 14
+        echo -e "$main_android_32_md5_text" > ../docs/json/main_android_32_md5.json || exit 9
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./main.arm32 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_32_md5.json  || exit 10
+        echo -e "$main_android_64_md5_text" > ../docs/json/main_android_64_md5.json || exit 11
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./main.aarch64 | cut -d' ' -f 1)\"/g" ../docs/json/main_android_64_md5.json || exit 12
     - name: Push android MD5
       run: |
         git config --global user.name "Lateralus138"
@@ -48,5 +48,5 @@ jobs:
         bodyFile: "./docs/md/release.md"
         name: Stable Release
         prerelease: True
-        artifacts: "./skulls.arm32,./skulls.aarch64"
+        artifacts: "./src/main.arm32,./src/main.aarch64"
         token: ${{ secrets.GITHUB_TOKEN }}
