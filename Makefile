@@ -1,5 +1,5 @@
 SHELL = bash
-PROJNM = skulls
+PROJNM = aptupgrade
 AND32GXX = arm-linux-gnueabihf-g++
 AND64GXX = aarch64-linux-gnu-g++
 
@@ -47,7 +47,7 @@ TSTARG = # --help # $(TSTEXE)
 # GTKINC = $(shell pkg-config gtkmm-3.0 --cflags)
 # GTKLIB = $(shell pkg-config gtkmm-3.0 --libs)
 
-LDFLAG = -I$(INCDIR) -O3 -std=c++17
+LDFLAG = -I$(INCDIR) -O3 -std=gnu++17
 ANDFLG = $(LDFLAG) -march=armv8.5-a
 # LDLIBS = -L$(LIBDIR) -l$(PROJNM)
 
@@ -146,7 +146,8 @@ test:
 	@echo Running test of $(TSTEXE)
 	./$(TSTEXE) $(TSTARG)
 
-buildlibs: buildallobjects buildarchive
+buildlibs:
+#buildlibs: buildallobjects buildarchive
 
 buildallobjects: cleanobjects
 	@echo Building object files from $(INCDIR) to $(LIBDIR)
