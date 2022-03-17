@@ -1,5 +1,5 @@
 SHELL = bash
-PROJNM = aptupgrade
+PROJNM = works
 AND32GXX = arm-linux-gnueabihf-g++
 AND64GXX = aarch64-linux-gnu-g++
 
