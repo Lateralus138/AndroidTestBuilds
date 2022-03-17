@@ -1,52 +1,52 @@
-name: Android Build 
+name: Android Build
 
 on:
-  push:
-    branch: [ master ] 
+  push:
+    branch: [ master ]
 
 jobs:
-  build_android:
-    name: Build Android
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Make Android
-      run: |
-        sudo apt update  || exit 1
-        sudo apt install g++-arm-linux-gnueabihf g++-aarch64-linux-gnu -y  || exit 2
-        make androidstaticall || exit 3
-        cp android/static/32/aptupgrade aptupgrade.arm32 || exit 4
-        cp android/static/64/aptupgrade aptupgrade.aarch64 || exit 5
-        chmod 755 aptupgrade.arm32 || exit 6
-        chmod 755 aptupgrade.aarch64 || exit 7
-        main_android_32_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "aptupgrade.arm32 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
-        main_android_64_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "aptupgrade.aarch46 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
-        if ! [[ -d "docs/json" ]]; then
-          mkdir -p docs/json || exit 8
-        fi
-        if ! [[ -f "docs/json/main_android_32_md5.json" ]]; then
-          touch docs/json/main_android_32_md5.json || exit 9
-        fi
-        if ! [[ -f "docs/json/main_android_64_md5.json" ]]; then
-          touch docs/json/main_android_64_md5.json || exit 10
-        fi
-        echo -e "$main_android_32_md5_text" > docs/json/main_android_32_md5.json || exit 11
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./aptupgrade.arm32 | cut -d' ' -f 1)\"/g" docs/json/main_android_32_md5.json  || exit 12
-        echo -e "$main_android_64_md5_text" > docs/json/main_android_64_md5.json || exit 13
-        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./aptupgrade.aarch64 | cut -d' ' -f 1)\"/g" docs/json/main_android_64_md5.json || exit 14
-    - name: Push android MD5
-      run: |
-        git config --global user.name "Lateralus138"
-        git config --global user.email "faithnomoread@yahoo.com"
-        git add --force ./docs/json
-        git commit --allow-empty -m "Uploaded MD5 - $(date)"
-        git push --force
-    - uses: ncipollo/release-action@v1
-      with:
-        allowUpdates: True
-        tag: 1.0.0.0
-        bodyFile: "./docs/md/release.md"
-        name: Stable Release
-        prerelease: True
-        artifacts: "./aptupgrade.arm32,./aptupgrade.aarch64"
-        token: ${{ secrets.GITHUB_TOKEN }}
+  build_android:
+    name: Build Android
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Make Android
+      run: |
+        sudo apt update  || exit 1
+        sudo apt install g++-arm-linux-gnueabihf g++-aarch64-linux-gnu -y  || exit 2
+        make androidstaticall || exit 3
+        cp android/static/32/aptupgrade aptupgrade.arm32 || exit 4
+        cp android/static/64/aptupgrade aptupgrade.aarch64 || exit 5
+        chmod 755 aptupgrade.arm32 || exit 6
+        chmod 755 aptupgrade.aarch64 || exit 7
+        main_android_32_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "aptupgrade.arm32 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
+        main_android_64_md5_text='{\n\t"schemaVersion": 1,\n\t"color": "2E9778",\n\t"label": "aptupgrade.aarch46 MD5",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "android"\n}'
+        if ! [[ -d "docs/json" ]]; then
+          mkdir -p docs/json || exit 8
+        fi
+        if ! [[ -f "docs/json/main_android_32_md5.json" ]]; then
+          touch docs/json/main_android_32_md5.json || exit 9
+        fi
+        if ! [[ -f "docs/json/main_android_64_md5.json" ]]; then
+          touch docs/json/main_android_64_md5.json || exit 10
+        fi
+        echo -e "$main_android_32_md5_text" > docs/json/main_android_32_md5.json || exit 11
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./aptupgrade.arm32 | cut -d' ' -f 1)\"/g" docs/json/main_android_32_md5.json  || exit 12
+        echo -e "$main_android_64_md5_text" > docs/json/main_android_64_md5.json || exit 13
+        sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum ./aptupgrade.aarch64 | cut -d' ' -f 1)\"/g" docs/json/main_android_64_md5.json || exit 14
+    - name: Push android MD5
+      run: |
+        git config --global user.name "Lateralus138"
+        git config --global user.email "faithnomoread@yahoo.com"
+        git add --force ./docs/json
+        git commit --allow-empty -m "Uploaded MD5 - $(date)"
+        git push --force
+    - uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: True
+        tag: 1.0.0.0
+        bodyFile: "./docs/md/release.md"
+        name: Stable Release
+        prerelease: True
+        artifacts: "./aptupgrade.arm32,./aptupgrade.aarch64"
+        token: ${{ secrets.GITHUB_TOKEN }}
