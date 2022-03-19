@@ -25,10 +25,10 @@ int main()
       (char *)"wget",
       (char *)
         "https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/"
-        "master/Installer/Ubuntu19/ubuntu19-lxqt.sh", NULL
+        "master/Installer/Ubuntu/ubuntu-lxqt.sh", NULL
     },
-    * argsChmod[] = {(char *)"chmod", (char *)"+x", (char *)"ubuntu19-lxqt.sh", NULL},
-    * argsRun[] = {(char *)"bash", (char *)"ubuntu19-lxqt.sh", NULL};
+    * argsChmod[] = {(char *)"chmod", (char *)"+x", (char *)"ubuntu-lxqt.sh", NULL},
+    * argsRun[] = {(char *)"bash", (char *)"ubuntu-lxqt.sh", NULL};
   int sysResult = 0;
   pid_t pid;
   std::cout <<  SPACER << "\nAttempting to run 'pkg update -y'\n";
@@ -65,7 +65,7 @@ int main()
     std::cerr << "Error in 'pkg install wget curl proot tar -y'.\n";
     return 2;
   }
-  std::cout << "Successfully ran 'pkg install wget curl proot tar -y'\n" << SPACER << "\nwget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu19/ubuntu19-lxqt.sh'\n";
+  std::cout << "Successfully ran 'pkg install wget curl proot tar -y'\n" << SPACER << "\nwget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu/ubuntu-lxqt.sh'\n";
   pid = fork();
   if (pid > -1)
   {
@@ -79,10 +79,10 @@ int main()
   }
   if (sysResult > 0)
   {
-    std::cerr << "Error in 'wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu19/ubuntu19-lxqt.sh'.\n";
+    std::cerr << "Error in 'wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu/ubuntu-lxqt.sh'.\n";
     return 3;
   }
-  std::cout << "Successfully ran 'wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu19/ubuntu19-lxqt.sh'\n" << SPACER << "\nAttempting to run 'chmod +x ubuntu19-lxqt.sh'\n";
+  std::cout << "Successfully ran 'wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu/ubuntu-lxqt.sh'\n" << SPACER << "\nAttempting to run 'chmod +x ubuntu-lxqt.sh'\n";
   pid = fork();
   if (pid > -1)
   {
@@ -96,10 +96,10 @@ int main()
   }
   if (sysResult > 0)
   {
-    std::cerr << "Error in 'chmod +x ubuntu19-lxqt.sh'.\n";
+    std::cerr << "Error in 'chmod +x ubuntu-lxqt.sh'.\n";
     return 4;
   }
-  std::cout << "Successfully ran 'chmod +x ubuntu19-lxqt.sh'\n" << SPACER << "\nAttempting to run 'bash ubuntu19-lxqt.sh'\n";
+  std::cout << "Successfully ran 'chmod +x ubuntu-lxqt.sh'\n" << SPACER << "\nAttempting to run 'bash ubuntu-lxqt.sh'\n";
   pid = fork();
   if (pid > -1)
   {
@@ -113,8 +113,8 @@ int main()
   }
   if (sysResult > 0)
   {
-    std::cerr << "Error in 'bash ubuntu19-lxqt.sh'.\n";
+    std::cerr << "Error in 'bash ubuntu-lxqt.sh'.\n";
     return 5;
   }
-  std::cout << "Successfully ran 'bash ubuntu19-lxqt.sh'\n" << SPACER << "\n";
+  std::cout << "Successfully ran 'bash ubuntu-lxqt.sh'\n" << SPACER << "\n";
 }
